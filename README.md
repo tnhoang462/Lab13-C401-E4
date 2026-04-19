@@ -95,8 +95,19 @@ docs/
 - Member E: dashboard + evidence
 - Member F: blueprint + demo lead
 
-## Instructor notes
+## Grading policy (60/40 Split)
 
-- The app uses a fake LLM and fake retrieval by default so the lab can run without paid model access.
-- Langfuse variables are optional for local dry run; when absent, the app still runs and logs a warning.
-- Three incidents can be injected live: `rag_slow`, `tool_fail`, `cost_spike`.
+Your final grade is calculated as follows:
+
+1. **Group Score (60%)**: 
+   - **Technical Implementation (30 pts)**: Verified by `validate_logs.py` and live system state.
+   - **Incident Response (10 pts)**: Accuracy of your root cause analysis in the report.
+   - **Live Demo (20 pts)**: Team presentation and system demonstration.
+2. **Individual Score (40%)**:
+   - **Individual Report (20 pts)**: Quality of your specific contributions in `docs/blueprint-template.md`.
+   - **Git Evidence (20 pts)**: Traceable work via commits and code ownership.
+
+**Passing Criteria**: 
+- All `TODO` blocks must be completed.
+- Minimum of 10 traces must be visible in Langfuse.
+- Dashboard must show all 6 required panels.
