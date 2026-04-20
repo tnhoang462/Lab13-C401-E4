@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from structlog.contextvars import bind_contextvars
 
@@ -18,6 +19,13 @@ from .tracing import tracing_enabled
 configure_logging()
 log = get_logger()
 app = FastAPI(title="Day 13 Observability Lab")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.add_middleware(CorrelationIdMiddleware)
 agent = LabAgent()
 
