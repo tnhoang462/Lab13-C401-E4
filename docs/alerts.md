@@ -38,3 +38,16 @@
   - shorten prompts
   - route easy requests to cheaper model
   - apply prompt cache
+
+## 4. Low quality score
+- Severity: P2
+- Trigger: `quality_score_avg < 0.70 for 15m`
+- Impact: agent responses degrade below acceptable quality SLO (target ≥ 0.75)
+- First checks:
+  1. Review recent traces for low `quality_score` tags
+  2. Check if `tool_fail` incident toggle is active
+  3. Compare expected_answers vs actual responses in `data/expected_answers.jsonl`
+- Mitigation:
+  - revert recent prompt changes
+  - disable failing tools and fall back to simpler retrieval
+  - escalate to model owner if degradation persists > 30m
