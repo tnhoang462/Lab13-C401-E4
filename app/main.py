@@ -21,7 +21,6 @@ app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
 agent = LabAgent()
 
-
 @app.on_event("startup")
 async def startup() -> None:
     log.info(
