@@ -27,6 +27,8 @@ PII_PATTERNS: dict[str, str] = {
         ấp|thôn|bản
     )\b
     """,
+    "api_key": r"[A-Za-z0-9]{32}",
+    "ip_address": r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b",
 }
 
 def scrub_text(text: str) -> str:
