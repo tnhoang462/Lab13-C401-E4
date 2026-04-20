@@ -56,6 +56,11 @@ class LabAgent:
                 },
                 usage_details={"input": response.usage.input_tokens, "output": response.usage.output_tokens},
             )
+            langfuse_context.score_current_trace(
+                name="quality",
+                value=quality_score,
+                data_type="NUMERIC",
+            )
 
         except Exception as exc:
             langfuse_context.update_current_trace(
