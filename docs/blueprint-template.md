@@ -34,22 +34,24 @@
 - [SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
-| Latency P95 | < 3000ms | 28d | |
-| Error Rate | < 2% | 28d | |
-| Cost Budget | < $2.5/day | 1d | |
+| SLI | Target | Window | Current Value |
+|---|---:|---|---:|
+| Latency P95 | < 3000ms | 28d | **13311ms** (During Incident) |
+| Error Rate | < 2% | 28d | **100%** (During Tool Fail) |
+| Cost Budget | < $2.5/day | 1d | **~$5.0** (Projected during cost_spike) |
 
 ### 3.3 Alerts & Runbook
 - [ALERT_RULES_SCREENSHOT]: [Path to image]
-- [SAMPLE_RUNBOOK_LINK]: [docs/alerts.md#L...]
+- [SAMPLE_RUNBOOK_LINK]: [docs/alerts.md#L3-L15]
 
 ---
 
 ## 4. Incident Response (Group)
-- [SCENARIO_NAME]: (e.g., rag_slow)
-- [SYMPTOMS_OBSERVED]: 
-- [ROOT_CAUSE_PROVED_BY]: (List specific Trace ID or Log Line)
-- [FIX_ACTION]: 
-- [PREVENTIVE_MEASURE]: 
+- [SCENARIO_NAME]: rag_slow (Simulated Performance Degradation)
+- [SYMPTOMS_OBSERVED]: Hệ thống vẫn trả về kết quả thành công (HTTP 200) nhưng độ trễ (Latency) tăng vọt từ 160ms lên hơn 13,000ms khi có tải nhẹ (concurrency=5).
+- [ROOT_CAUSE_PROVED_BY]: Log ghi nhận `latency_ms` cực cao tập trung tại khâu `retrieve` (RAG), chứng minh sự cố nằm ở layer truy xuất dữ liệu chứ không phải ở LLM.
+- [FIX_ACTION]: Tạm thời tắt incident toggle bằng `inject_incident.py --disable`. Trong thực tế sẽ cần tối ưu lại Vector DB hoặc scale-up dịch vụ retrieval.
+- [PREVENTIVE_MEASURE]: Cài đặt Alert dựa trên P95 Latency (>2s) để phát hiện sớm các hiện tượng "nghẽn cổ chai" trước khi người dùng phàn nàn.
 
 ---
 
@@ -67,9 +69,13 @@
 - [TASKS_COMPLETED]: 
 - [EVIDENCE_LINK]: 
 
-### [MEMBER_D_NAME]
+### [Nguyễn Xuân Mong - Member D]
 - [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
+  1. Xác lập Baseline hiệu năng hệ thống (Latency P50 ~160ms).
+  2. Thực hiện Chaos Engineering: Giả lập thành công 3 sự cố (`rag_slow`, `cost_spike`, `tool_fail`) để kiểm thử hệ thống giám sát.
+  3. Phân tích Stress Test: Đo lường tác động của tải cao (concurrency=5) lên độ trễ hệ thống (tăng vọt lên 13.3s).
+  4. Enrich Test Data: Bổ sung dữ liệu PII và Edge cases vào `sample_queries.jsonl` để kiểm tra khả năng Sanitization (lọc dữ liệu nhạy cảm).
+- [EVIDENCE_LINK]: Đã thực hiện commit thay đổi file `data/sample_queries.jsonl` và lưu trữ log thực thi các kịch bản load test.
 
 ### [MEMBER_E_NAME]
 - [TASKS_COMPLETED]: 

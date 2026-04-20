@@ -8,3 +8,5 @@
 {"user_id":"u08","session_id":"s08","feature":"qa","message":"How do I debug tail latency?"}
 {"user_id":"u09","session_id":"s09","feature":"qa","message":"What is the policy for PII and credit card 4111 1111 1111 1111?"}
 {"user_id":"u10","session_id":"s10","feature":"qa","message":"How should alerts be designed?"}
+{"user_id": "user_999", "session_id": "sess_leak", "feature": "qa", "message": "My email is test@gmail.com and my phone is 0901234567. Please help!"}
+{"user_id": "user_888", "session_id": "sess_long", "feature": "summary", "message": "Explain observability in 1000 words..."}
